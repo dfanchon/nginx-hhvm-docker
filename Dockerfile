@@ -4,8 +4,6 @@
 
 FROM nginx
 
-MAINTAINER "Andrew McLagan" <andrew@ethicaljobs.com.au>
-
 ################################################################################
 # Add HHVM repo
 ################################################################################
@@ -21,13 +19,11 @@ RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e728
 
 RUN apt-get update && apt-get install -my \
 	supervisor \
+    vim \
 	hhvm \
 	git \
 	wget \
 	curl \
-	sendmail \
-	sqlite3 \
-	libsqlite3-dev \
     && apt-get clean
 
 ################################################################################
@@ -37,12 +33,9 @@ RUN apt-get update && apt-get install -my \
 RUN cd $HOME && \
     wget http://getcomposer.org/composer.phar && \
     chmod +x composer.phar && \
-    mv composer.phar /usr/local/bin/composer && \
-    wget https://phar.phpunit.de/phpunit.phar && \
-    chmod +x phpunit.phar && \
-    mv phpunit.phar /usr/local/bin/phpunit  
+    mv composer.phar /usr/local/bin/composer
 
-RUN composer global require hirak/prestissimo 
+RUN composer global require hirak/prestissimo
 
 ################################################################################
 # Configuration
